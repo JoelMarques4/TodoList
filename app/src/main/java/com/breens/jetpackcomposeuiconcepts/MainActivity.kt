@@ -16,9 +16,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Mail
@@ -32,7 +34,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.breens.jetpackcomposeuiconcepts.taskmanager.components.AddButtonComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.ProfileHeaderComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.TaskComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.WelcomeMessageComponent
@@ -48,7 +49,20 @@ class MainActivity : ComponentActivity() {
             val screens = listOf("Calendar", "Home", "Notifications")
 
             TaskManagerAppJetpackComposeTheme {
-                Scaffold(bottomBar = {
+                Scaffold(
+                    floatingActionButton = {
+                    FloatingActionButton(onClick = { }, contentColor = Color.White, backgroundColor = Color.Black ) {
+                        Icon(
+                            Icons.Filled.Add,
+                            modifier = Modifier
+                                .size(30.dp),
+                            contentDescription = "Add",
+
+                        )
+
+                    }
+                },
+                    bottomBar = {
                     BottomNavigation(
                         modifier = Modifier.height(90.dp),
                         backgroundColor = Color.White,
@@ -105,12 +119,12 @@ class MainActivity : ComponentActivity() {
                             Spacer(modifier = Modifier.height(30.dp))
                         }
 
-                        item {
-                            AddButtonComponent()
-                        }
-
                         items(taskList) { task ->
-                            TaskComponent(task = task)
+                            TaskComponent(
+                                task = task,
+                                onCompletedChange = {task.isCompleted != task.isCompleted},
+                                onDeleteClick = {},
+                                onItemClick = {})
 
                             Spacer(modifier = Modifier.height(16.dp))
                         }

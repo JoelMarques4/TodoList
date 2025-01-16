@@ -1,5 +1,6 @@
 package com.breens.jetpackcomposeuiconcepts.taskmanager.components
 
+import android.widget.RadioGroup.OnCheckedChangeListener
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxColors
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +34,12 @@ import com.breens.jetpackcomposeuiconcepts.ui.theme.LightGreen
 import com.breens.jetpackcomposeuiconcepts.ui.theme.LightPurple
 
 @Composable
-fun TaskComponent(task: Task) {
+fun TaskComponent(
+    task: Task,
+    onCompletedChange: (Boolean) -> Unit,
+    onItemClick: () ->Unit,
+    onDeleteClick: () ->Unit,
+    ) {
     val taskColor = listOf(LightPurple, LightGreen, LightBlue).random()
 
     Row(
@@ -46,7 +54,9 @@ fun TaskComponent(task: Task) {
         )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Box(
+            Checkbox(
+                checked = task.isCompleted,
+                onCheckedChange = { task.isCompleted = !task.isCompleted },
                 modifier = Modifier
                     .size(16.dp)
                     .clip(CircleShape)
