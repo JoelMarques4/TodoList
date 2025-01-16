@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.breens.jetpackcomposeuiconcepts.taskmanager.components.AddButtonComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.ProfileHeaderComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.TaskComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.WelcomeMessageComponent
@@ -66,7 +67,7 @@ class MainActivity : ComponentActivity() {
                                 icon = {
                                     Box(
                                         modifier = Modifier
-                                            .size(80.dp)
+                                            .size(50.dp)
                                             .clip(CircleShape)
                                             .background(if (selectedScreen == index) Color.Black else Color.White),
                                         contentAlignment = Alignment.Center
@@ -102,6 +103,10 @@ class MainActivity : ComponentActivity() {
                             WelcomeMessageComponent()
 
                             Spacer(modifier = Modifier.height(30.dp))
+                        }
+
+                        item {
+                            AddButtonComponent()
                         }
 
                         items(taskList) { task ->
