@@ -1,6 +1,0 @@
-[versions]
-   kotlinxSerialization = "1.7.1"
-    kotlin = "1.5.31"
-
-[libraries]
-   kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }

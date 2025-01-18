@@ -51,7 +51,7 @@ fun TaskComponent(
     task: Task,
     onItemClick: () ->Unit,
     onDeleteClick: () ->Unit,
-    ) {
+) {
     val taskColor = listOf(LightPurple, LightGreen, LightBlue).random()
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -87,64 +87,64 @@ fun TaskComponent(
                 shape = RoundedCornerShape(14.dp)
             ) {
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(14.dp))
-                        .background(taskColor)
-                        .weight(0.9f),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = task.title,
-                        fontFamily = FontFamily(Font(R.font.nunito_bold)),
-                        modifier = Modifier.padding(
-                            start = 12.dp,
-                            top = 12.dp
-                        )
-                    )
-
-                    if (task.body != null) {
-                        Text(
-                            text = task.body,
-                            fontFamily = FontFamily(Font(R.font.nunito_bold)),
-                            modifier = Modifier.padding(start = 12.dp),
-                            color = Color.Gray
-                        )
-                    }
-
-                    Text(
-                        text = "${task.startTime} - ${task.endTime}",
-                        fontFamily = FontFamily(Font(R.font.nunito_bold)),
-                        modifier = Modifier.padding(
-                            start = 12.dp,
-                            bottom = 12.dp
-                        )
-                    )
-                    IconButton(
-                        onClick = {
-                            onDeleteClick()
-                        }, modifier = Modifier
-                            .size(34.dp)
-                            .align(alignment = Alignment.End)
-                            .offset(
-                                x = (-12).dp,
-                                y = (-8).dp
-                            )
-                            .padding(
-                                start = 8.dp
-                            )
+                    Column(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(14.dp))
+                            .background(taskColor)
+                            .weight(0.9f),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Icon(
-                            Icons.Filled.Delete,
-                            contentDescription = "Delete Task"
+                        Text(
+                            text = task.title,
+                            fontFamily = FontFamily(Font(R.font.nunito_bold)),
+                            modifier = Modifier.padding(
+                                start = 12.dp,
+                                top = 12.dp
+                            )
                         )
+
+                        if (task.body != null) {
+                            Text(
+                                text = task.body,
+                                fontFamily = FontFamily(Font(R.font.nunito_bold)),
+                                modifier = Modifier.padding(start = 12.dp),
+                                color = Color.Gray
+                            )
+                        }
+
+                        Text(
+                            text = "${task.startTime} - ${task.endTime}",
+                            fontFamily = FontFamily(Font(R.font.nunito_bold)),
+                            modifier = Modifier.padding(
+                                start = 12.dp,
+                                bottom = 12.dp
+                            )
+                        )
+                        IconButton(
+                            onClick = {
+                                onDeleteClick()
+                            }, modifier = Modifier
+                                .size(34.dp)
+                                .align(alignment = Alignment.End)
+                                .offset(
+                                    x = (-12).dp,
+                                    y = (-8).dp
+                                )
+                                .padding(
+                                    start = 8.dp
+                                )
+                        ) {
+                            Icon(
+                                Icons.Filled.Delete,
+                                contentDescription = "Delete Task"
+                            )
+                        }
                     }
                 }
-            }
                 Divider(
                     modifier = Modifier
                         .width(6.dp)
@@ -203,12 +203,12 @@ private fun Test() {
                     )
 
 
-                        Text(
-                            text = "asdasas",
-                            fontFamily = FontFamily(Font(R.font.nunito_bold)),
-                            modifier = Modifier.padding(start = 12.dp),
-                            color = Color.Gray
-                        )
+                    Text(
+                        text = "asdasas",
+                        fontFamily = FontFamily(Font(R.font.nunito_bold)),
+                        modifier = Modifier.padding(start = 12.dp),
+                        color = Color.Gray
+                    )
 
                     Text(
                         text = "asdasdsa",
@@ -219,16 +219,16 @@ private fun Test() {
                         )
                     )
                     IconButton(onClick = { }, modifier = Modifier
-                            .size(34.dp)
-                            .align(alignment = Alignment.End)
-                            .offset(
-                                x = (-12).dp,
-                                y = (-8).dp
-                            )
-                            .padding(
-                                start = 8.dp
-                            )
-                        ) {
+                        .size(34.dp)
+                        .align(alignment = Alignment.End)
+                        .offset(
+                            x = (-12).dp,
+                            y = (-8).dp
+                        )
+                        .padding(
+                            start = 8.dp
+                        )
+                    ) {
                         Icon(
                             Icons.Filled.Delete,
                             contentDescription = "Delete Task"
