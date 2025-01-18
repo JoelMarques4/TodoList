@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.breens.jetpackcomposeuiconcepts.navigation.TaskNavHost
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.ProfileHeaderComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.TaskComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.WelcomeMessageComponent
@@ -49,9 +50,12 @@ class MainActivity : ComponentActivity() {
             val screens = listOf("Calendar", "Home", "Notifications")
 
             TaskManagerAppJetpackComposeTheme {
+                TaskNavHost()
                 Scaffold(
                     floatingActionButton = {
-                    FloatingActionButton(onClick = { }, contentColor = Color.White, backgroundColor = Color.Black ) {
+                    FloatingActionButton(onClick = { },
+                        contentColor = Color.White,
+                        backgroundColor = Color.Black ) {
                         Icon(
                             Icons.Filled.Add,
                             modifier = Modifier
@@ -122,7 +126,6 @@ class MainActivity : ComponentActivity() {
                         items(taskList) { task ->
                             TaskComponent(
                                 task = task,
-                                onCompletedChange = {task.isCompleted != task.isCompleted},
                                 onDeleteClick = {},
                                 onItemClick = {})
 

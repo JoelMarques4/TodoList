@@ -6,7 +6,7 @@ data class Task(
     val body: String? = null,
     val startTime: String,
     val endTime: String,
-    var isCompleted: Boolean
+    val isCompleted: Boolean
 )
 
 val taskList = listOf(
