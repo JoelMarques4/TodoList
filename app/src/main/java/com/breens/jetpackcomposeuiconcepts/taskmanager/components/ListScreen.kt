@@ -1,17 +1,14 @@
 package com.breens.jetpackcomposeuiconcepts.taskmanager.components
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.consumedWindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
@@ -41,7 +38,7 @@ fun ListContent(
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier
-                .consumedWindowInsets(paddingValues)
+                .consumeWindowInsets(paddingValues)
         ) {
             itemsIndexed(task) { index, taskIt ->
                 TaskComponent(
