@@ -32,6 +32,7 @@ import com.breens.jetpackcomposeuiconcepts.ui.theme.TaskManagerAppJetpackCompose
 
 @Composable
 fun AddEditScreen(
+    id: Long?,
     navigateBack: () -> Unit,
 ) {
     val context = LocalContext.current.applicationContext
@@ -41,6 +42,7 @@ fun AddEditScreen(
     )
     val viewModel = viewModel<AddEditViewModel>{
         AddEditViewModel(
+            id = id,
             repository = repository
         )
     }
@@ -150,6 +152,38 @@ fun AddEditContent(
                 modifier = Modifier
                     .fillMaxWidth()
             )
+            Spacer(modifier = Modifier.size(16.dp))
+            OutlinedTextField(
+                value = startTime,
+                onValueChange = {
+                    onEvent(
+                        AddEditEvent.StartTimeChanged(it)
+                    )
+                },
+                placeholder = {
+                    Text(text = "Horário Inicial")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.size(16.dp))
+
+            OutlinedTextField(
+                value = endTime,
+                onValueChange = {
+                    onEvent(
+                        AddEditEvent.EndTimeChanged(it)
+                    )
+                },
+                placeholder = {
+                    Text(text = "Horário Final")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.size(16.dp))
         }
     }
 }

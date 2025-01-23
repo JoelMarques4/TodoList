@@ -5,8 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.breens.jetpackcomposeuiconcepts.taskmanager.feature.ListScreen
 import com.breens.jetpackcomposeuiconcepts.taskmanager.feature.addedit.AddEditScreen
+import com.breens.jetpackcomposeuiconcepts.taskmanager.feature.list.ListScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -29,6 +29,7 @@ fun TaskNavHost() {
         composable<AddEditRoute> { backStackEntry ->
             val addEditRoute = backStackEntry.toRoute<AddEditRoute>()
             AddEditScreen(
+                id = addEditRoute.id,
                 navigateBack = {
                     navController.popBackStack()
                 }

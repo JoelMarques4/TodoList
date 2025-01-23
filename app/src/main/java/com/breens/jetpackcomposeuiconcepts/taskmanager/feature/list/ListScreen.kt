@@ -1,4 +1,4 @@
-package com.breens.jetpackcomposeuiconcepts.taskmanager.feature
+package com.breens.jetpackcomposeuiconcepts.taskmanager.feature.list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -22,6 +22,8 @@ import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Mail
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,11 +33,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.breens.jetpackcomposeuiconcepts.navigation.AddEditRoute
+import com.breens.jetpackcomposeuiconcepts.taskmanager.UiEvent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.ProfileHeaderComponent
+import com.breens.jetpackcomposeuiconcepts.taskmanager.components.TaskComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.components.WelcomeMessageComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.data.Task
+import com.breens.jetpackcomposeuiconcepts.taskmanager.data.TaskDatabaseProvider
+import com.breens.jetpackcomposeuiconcepts.taskmanager.data.TaskRepositoryImpl
 import com.breens.jetpackcomposeuiconcepts.taskmanager.data.taskList
 import com.breens.jetpackcomposeuiconcepts.ui.theme.TaskManagerAppJetpackComposeTheme
 
@@ -43,9 +52,43 @@ import com.breens.jetpackcomposeuiconcepts.ui.theme.TaskManagerAppJetpackCompose
 fun ListScreen(
     navigateToAddEditScreen: (id: Long?) -> Unit,
 ) {
+    val context = LocalContext.current.applicationContext
+    val database = TaskDatabaseProvider.provide(context)
+    val repository = TaskRepositoryImpl(
+        dao = database.taskDao
+    )
+    val viewModel = viewModel<ListViewModel>{
+        ListViewModel(repository = repository)
+    }
+
+    val tasks by viewModel.tasks.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is UiEvent.Navigate<*> -> {
+                    when(uiEvent.route){
+                        is AddEditRoute -> {
+                            navigateToAddEditScreen(uiEvent.route.id)
+                        }
+                    }
+                }
+
+                is UiEvent.NavigateBack -> {
+
+                }
+
+                is UiEvent.ShowSnackbar -> {
+
+                }
+            }
+
+        }
+    }
+
     ListContent(
-        task = emptyList(),
-        onAddItemClick = navigateToAddEditScreen
+        task = tasks,
+        onEvent = viewModel::onEvent
     )
 }
 
@@ -53,13 +96,14 @@ fun ListScreen(
 @Composable
 fun ListContent(
     task: List<Task>,
-    onAddItemClick: (id: Long?) -> Unit
+    onEvent: (ListEvent) -> Unit,
 ) {
     var selectedScreen by remember { mutableStateOf(1) }
     val screens = listOf("Calendar", "Home", "Notifications")
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = { onAddItemClick(null) },
+            FloatingActionButton(onClick = {
+                onEvent(ListEvent.AddEdit(null)) },
                 contentColor = Color.White,
                 backgroundColor = Color.Black ) {
                 Icon(
@@ -130,8 +174,24 @@ fun ListContent(
                 Spacer(modifier = Modifier.height(30.dp))
             }
 
-            items(task) {
-                Spacer(modifier = Modifier.height(16.dp))
+            //show all items on screen
+            itemsIndexed(task) { index, taskIt ->
+                TaskComponent(
+                    task = taskIt,
+                    onItemClick = {
+                        onEvent(ListEvent.AddEdit(taskIt.id))
+                    },
+                    onDeleteClick = {
+                        onEvent(ListEvent.Delete(taskIt.id))
+                    },
+                    /*
+                    onCompletedChange = {
+                        onEvent(ListEvent.CompleteTask(task.id, it))
+                    },
+                    */
+                )
+                if(index < task.lastIndex)
+                    Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
@@ -143,7 +203,7 @@ private fun ListContentPreview() {
     TaskManagerAppJetpackComposeTheme(){
         ListContent(
             taskList,
-            onAddItemClick = {}
+            onEvent = {}
         )
 
     }

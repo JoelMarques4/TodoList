@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class AddEditViewModel(
+    private val id: Long? = null,
     private val repository: TaskRepository,
 ) : ViewModel(){
 
@@ -29,6 +30,18 @@ class AddEditViewModel(
 
     private var _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
+
+    init{
+        id?.let {
+            viewModelScope.launch {
+                val task = repository.getBy(it)
+                title = task?.title ?: ""
+                body = task?.body
+                startTime = task?.startTime ?: ""
+                endTime = task?.endTime ?: ""
+            }
+        }
+    }
 
     fun onEvent(event: AddEditEvent){
         when(event){
@@ -58,7 +71,7 @@ class AddEditViewModel(
                 return@launch
             }
 
-            repository.insert(title, body, startTime, endTime)
+            repository.insert(title, body, startTime, endTime, id)
             _uiEvent.send(UiEvent.NavigateBack)
         }
     }
