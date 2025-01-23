@@ -14,7 +14,7 @@ abstract class TaskDataBase: RoomDatabase() {
     abstract val taskDao: TaskDao
 }
 
-object TodoDatabaseProvider {
+object TaskDatabaseProvider {
 
     @Volatile
     private var INSTANCE: TaskDataBase? = null

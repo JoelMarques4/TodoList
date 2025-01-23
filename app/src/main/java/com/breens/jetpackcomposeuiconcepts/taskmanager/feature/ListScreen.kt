@@ -1,4 +1,4 @@
-package com.breens.jetpackcomposeuiconcepts.taskmanager.components
+package com.breens.jetpackcomposeuiconcepts.taskmanager.feature
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -33,6 +33,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.breens.jetpackcomposeuiconcepts.taskmanager.components.ProfileHeaderComponent
+import com.breens.jetpackcomposeuiconcepts.taskmanager.components.WelcomeMessageComponent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.data.Task
 import com.breens.jetpackcomposeuiconcepts.taskmanager.data.taskList
 import com.breens.jetpackcomposeuiconcepts.ui.theme.TaskManagerAppJetpackComposeTheme
