@@ -14,4 +14,6 @@ interface TaskRepository {
 
     suspend fun getBy(id: Long): Task?
 
+    fun getTaskCount(): Flow<Int>
+
 }

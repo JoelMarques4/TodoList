@@ -22,4 +22,7 @@ interface TaskDao {
     @Query("SELECT * FROM tasks WHERE id = :id")
     suspend fun getBy(id: Long): TaskEntity?
 
+    @Query("SELECT COUNT(*) FROM tasks")
+    fun getTaskCount(): Flow<Int>
+
 }

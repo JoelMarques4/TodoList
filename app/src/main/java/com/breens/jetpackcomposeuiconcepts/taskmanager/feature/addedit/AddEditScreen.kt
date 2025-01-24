@@ -1,5 +1,7 @@
 package com.breens.jetpackcomposeuiconcepts.taskmanager.feature.addedit
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Spacer
@@ -7,6 +9,7 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
@@ -20,11 +23,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.breens.jetpackcomposeuiconcepts.R
 import com.breens.jetpackcomposeuiconcepts.taskmanager.UiEvent
 import com.breens.jetpackcomposeuiconcepts.taskmanager.data.TaskDatabaseProvider
 import com.breens.jetpackcomposeuiconcepts.taskmanager.data.TaskRepositoryImpl
@@ -51,6 +59,7 @@ fun AddEditScreen(
     val description = viewModel.body
     val startTime = viewModel.startTime
     val endTime = viewModel.endTime
+
 
     val snackbarHostState = remember{
         SnackbarHostState()
@@ -123,6 +132,15 @@ fun AddEditContent(
                 .consumeWindowInsets(paddingValues)
                 .padding(16.dp)
         ){
+            Text(
+                text = "Criação/Edição de Tarefa",
+                fontFamily = FontFamily(Font(R.font.nunito_extrabold)),
+                fontSize = 22.sp
+            )
+
+            Spacer(modifier = Modifier.size(56.dp))
+
+
             OutlinedTextField(
                 value = title,
                 onValueChange = {
@@ -135,6 +153,14 @@ fun AddEditContent(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(Color(0xFFF1F4FF))
+                    .border(
+                        width = 1.dp,
+                        color = Color(0xFFFFFFFF),
+                        shape = RoundedCornerShape(14.dp)
+                    )
+
             )
 
             Spacer(modifier = Modifier.size(16.dp))
@@ -151,6 +177,14 @@ fun AddEditContent(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(Color(0xFFF1F4FF))
+                    .border(
+                        width = 1.dp,
+                        color = Color(0xFFFFFFFF),
+                        shape = RoundedCornerShape(14.dp)
+                    )
+
             )
             Spacer(modifier = Modifier.size(16.dp))
             OutlinedTextField(
@@ -161,10 +195,17 @@ fun AddEditContent(
                     )
                 },
                 placeholder = {
-                    Text(text = "Horário Inicial")
+                    Text(text = "Horário Inicial (00:00)")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(Color(0xFFF1F4FF))
+                    .border(
+                        width = 1.dp,
+                        color = Color(0xFFFFFFFF),
+                        shape = RoundedCornerShape(14.dp)
+                    )
             )
 
             Spacer(modifier = Modifier.size(16.dp))
@@ -177,12 +218,18 @@ fun AddEditContent(
                     )
                 },
                 placeholder = {
-                    Text(text = "Horário Final")
+                    Text(text = "Horário Final (00:00)")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(Color(0xFFF1F4FF))
+                    .border(
+                        width = 1.dp,
+                        color = Color(0xFFFFFFFF),
+                        shape = RoundedCornerShape(14.dp)
+                    )
             )
-
             Spacer(modifier = Modifier.size(16.dp))
         }
     }
@@ -195,8 +242,8 @@ private fun AddEditContentPreview() {
         AddEditContent(
             title = "Title",
             description = "Description",
-            startTime = "Start Time",
-            endTime = "End Time",
+            startTime = "Start Time (00:00)",
+            endTime = "End Time (00:00)",
             onEvent = {},
             snackbarHostState = SnackbarHostState()
         )

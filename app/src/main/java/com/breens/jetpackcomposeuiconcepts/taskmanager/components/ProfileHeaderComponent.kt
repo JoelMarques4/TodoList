@@ -33,7 +33,7 @@ fun ProfileHeaderComponent() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.profile),
+            painter = painterResource(id = R.drawable.profile2),
             contentDescription = "Profile Picture",
             modifier = Modifier
                 .size(30.dp)

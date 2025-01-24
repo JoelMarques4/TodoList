@@ -66,5 +66,9 @@ class TaskRepositoryImpl(
         }
     }
 
+    override fun getTaskCount(): Flow<Int> {
+        return dao.getTaskCount()
+    }
+
 
 }
