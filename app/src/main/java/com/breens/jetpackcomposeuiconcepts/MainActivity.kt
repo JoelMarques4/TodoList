@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.ui.Modifier
 import com.breens.jetpackcomposeuiconcepts.navigation.TaskNavHost
 import com.breens.jetpackcomposeuiconcepts.ui.theme.TaskManagerAppJetpackComposeTheme
+import java.io.File
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +21,19 @@ class MainActivity : ComponentActivity() {
                     .safeDrawingPadding()
             ){
                 TaskManagerAppJetpackComposeTheme {
+                    val fileName = "username.txt"
+                    val file = File(filesDir, fileName)
+                    if (!file.exists()) {
+                        file.createNewFile()
+                    }
+                    val userName = "insertedUserName" // Replace with the actual user name
+                    val fileContent = file.readText()
+                    if (userName in fileContent) {
+                        // User name exists in the file
+                    } else {
+                        // User name does not exist in the file
+                        file.appendText("$userName\n")
+                    }
                     TaskNavHost()
                 }
             }
