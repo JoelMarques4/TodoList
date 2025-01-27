@@ -14,4 +14,6 @@ interface UserDataRepository {
 
     fun getUserCount(): Flow<Int>
 
+    fun getUserName(id: Long): Flow<String>
+
 }

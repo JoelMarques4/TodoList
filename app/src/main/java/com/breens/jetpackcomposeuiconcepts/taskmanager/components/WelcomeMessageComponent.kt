@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.produceState
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -21,6 +21,7 @@ import com.breens.jetpackcomposeuiconcepts.taskmanager.data.userdata.UserDataRep
 import com.breens.jetpackcomposeuiconcepts.taskmanager.feature.list.ListViewModel
 import com.breens.jetpackcomposeuiconcepts.taskmanager.feature.login.LoginViewModel
 import com.breens.jetpackcomposeuiconcepts.ui.theme.LightGray
+import kotlinx.coroutines.flow.first
 
 @Composable
 @Preview
@@ -44,11 +45,10 @@ fun WelcomeMessageComponent() {
     }
 
     var taskAmount = repository.getTaskCount().collectAsState(initial = 0).value
-    var name = viewModelLogin.name
-
-    LaunchedEffect(Unit) {
-        name = repositoryUser.getBy(1)?.name ?: ""
-    }
+    var name = produceState(initialValue = "") {
+        val userCount = repositoryUser.getUserCount().first()
+        value = repositoryUser.getUserName(userCount.toLong()).first()
+    }.value
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(

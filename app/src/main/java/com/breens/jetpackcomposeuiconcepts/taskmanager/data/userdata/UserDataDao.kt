@@ -25,4 +25,7 @@ interface UserDataDao {
     @Query("SELECT COUNT(*) FROM user")
     fun getUserCount(): Flow<Int>
 
+    @Query("SELECT name FROM user WHERE id = :id")
+    fun getUserName(id: Long): Flow<String>
+
 }

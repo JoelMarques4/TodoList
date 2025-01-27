@@ -24,7 +24,7 @@ object UserDataDatabaseProvider {
             val instance = Room.databaseBuilder(
                 context.applicationContext,
                 UserDataDataBase::class.java,
-                "task-app"
+                "user-data"
             ).build()
             INSTANCE = instance
             instance

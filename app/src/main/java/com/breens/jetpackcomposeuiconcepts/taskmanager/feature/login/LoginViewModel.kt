@@ -15,37 +15,42 @@ import kotlinx.coroutines.launch
 class LoginViewModel(
     private val id: Long? = null,
     private val repository: UserDataRepository,
-) : ViewModel(){
+) : ViewModel() {
 
-    var name by mutableStateOf("")
-    private set
+    var username by mutableStateOf("")
+        private set
 
     var password by mutableStateOf("")
-    private set
+        private set
 
     private var _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    init{
+    init {
         id?.let {
             viewModelScope.launch {
-                val user = repository.getBy(it)
-                name = user?.name ?: ""
-                password = user?.password ?: ""
-                //body = task?.body
+                try {
+                    val user = repository.getBy(it)
+                    username = user?.name ?: ""
+                    password = user?.name ?: ""
+                } catch (e: Exception) {
+                    _uiEvent.send(UiEvent.ShowSnackbar("Failed to load user data"))
+                }
             }
         }
     }
 
 
-    fun onEvent(event: LoginEvent){
-        when(event){
+    fun onEvent(event: LoginEvent) {
+        when (event) {
             is LoginEvent.NameChanged -> {
-                name = event.name
+                username = event.name
             }
+
             is LoginEvent.PasswordChanged -> {
                 password = event.password
             }
+
             is LoginEvent.Save -> {
                 saveTask()
             }
@@ -55,14 +60,13 @@ class LoginViewModel(
     private fun saveTask() {
         viewModelScope.launch {
 
-            if(name.isBlank()){
+            if (username.isBlank()) {
                 _uiEvent.send(UiEvent.ShowSnackbar("O título não pode ser vazio"))
                 return@launch
             }
 
-            repository.insert(name, password, id)
+            repository.insert(username, password, id)
             _uiEvent.send(UiEvent.NavigateBack)
         }
     }
-
 }

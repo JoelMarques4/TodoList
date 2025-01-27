@@ -27,7 +27,7 @@ fun TaskNavHost() {
             LoginScreen(
                 id = 0,
                 navigateBack = {
-                    navController.popBackStack()
+                    navController.navigate(ListRoute)
                 }
             )
         }

@@ -53,5 +53,9 @@ class UserDataRepositoryImpl(
         return dao.getUserCount()
     }
 
+    override fun getUserName(id: Long): Flow<String> {
+       return dao.getUserName(id)
+    }
+
 
 }

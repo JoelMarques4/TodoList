@@ -53,7 +53,7 @@ fun LoginScreen(
         )
     }
 
-    val name = viewModel.name
+    val name = viewModel.username
     val password = viewModel.password
 
 
@@ -76,7 +76,7 @@ fun LoginScreen(
 
     LoginContent(
         name = name,
-        password = "password",
+        password = password,
         onEvent = viewModel::onEvent,
     )
 }
@@ -147,7 +147,7 @@ fun LoginContent(
                 value = password,
                 onValueChange = {
                     onEvent(
-                        LoginEvent.NameChanged(it)
+                        LoginEvent.PasswordChanged(it)
                     )
                 },
                 placeholder = {
