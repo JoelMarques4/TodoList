@@ -1,12 +1,13 @@
-# Jetpack-Compose UI Concepts Implementation
-This repository contains all the UI concepts that learners will learn during the Youtube tutorials where they try to implement UI designs 🎨 using Jetpack Compose.
+# University Project
+This repository contains files created for a university project, aimed at learning Kotlin and Jetpack Compose.
+
+## Credits
+This project uses as base the tutorial made by Breens: https://github.com/Breens-Mbaka/Jetpack-Compose-UI-Concepts-Implementation
+
 
 ## Task Manager App UI Concept 
 This UI design concept was created by [Taras Migulko](https://dribbble.com/shots/18207094-Task-manager-app)
 
-<img src="images/taskmanager.png" width="250"/>
-
-https://user-images.githubusercontent.com/72180010/230712496-cae6a336-a38f-484d-bebd-ed5c46d60118.mp4
 
 # License
 ```xml
